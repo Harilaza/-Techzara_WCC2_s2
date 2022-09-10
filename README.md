@@ -12,6 +12,7 @@
 <p>copy the .env.example and rename it to .env</p>
 <p>create database 'exchange' and import the file 'exchange.sql' into database <b>OR</b> migrate if you want empty database</p>
 <p> run command :'composer install' into your app directory</p>
+<p>create a symbolic link to access storage folder => "php artisan storage:link"</p>
 <p>run : php artisan serve</p>
 
 # Accomplished :
