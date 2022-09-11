@@ -26,7 +26,7 @@
             <li>toy's name that he want to exchange, provide with some image(s) for description</li>
             <li>toy's name that the user want to exchange his own toy </li>
         </ul>
-        <p><b><u>N.B:</u></b> If a user was already proposed a toy before, it will not duplicate the user's data like name and contact but will only add a new toy related to this user. </p>
+        <p><b><u>N.B:</u></b> If a user was already proposed a toy before, it will not duplicate the user's data like name and contact but will only add a new toy related to this user,<u> the user is verified by contact not the user name </u></p>
     </li>
     <li>List all toys</li>
     <li>List all toy with active and/or deactive status, provide with pagination. Each page contain originally 10 items; but it is <b>allowed to change the number of pagination</b></li>

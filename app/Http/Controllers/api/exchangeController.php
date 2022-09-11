@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class exchangeController extends Controller
 {
+    // Adding new toys and user if it didn't proposed toy before
 
     public function createToy(Request $request)
     {
-        $validated = $request->validate([
+
+        $validated = $request->validate([       // verify if the data is accepted
             'user_name' => 'required',
             'contact' => 'required|digits:12',
             'toy_name' => 'required',
@@ -24,16 +26,16 @@ class exchangeController extends Controller
             'toy_images.*' => 'mimes:jpg,png,jpeg,gif,webp'
         ]);
 
-        if ($request->hasFile('toy_images') == false) {
+        if ($request->hasFile('toy_images') == false) {  // verify if the image input has file
             return response()->json([
                 'message' => "You must upload at least one image"
             ], 500);
         }
-        $checkUser = (new UserServices)->searchUser($validated['contact']);
+        $checkUser = (new UserServices)->searchUser($validated['contact']); // checking the user name
 
         DB::beginTransaction();
         try {
-
+            // inserting data into database
             if ($checkUser == "") {
 
                 $user = (new UserServices)->create($validated['user_name'], $validated['contact']);
@@ -58,6 +60,8 @@ class exchangeController extends Controller
         }
     }
 
+    // deactivate the exchange
+
     public function deactivate($id)
     {
         try {
@@ -81,6 +85,7 @@ class exchangeController extends Controller
         }
     }
 
+    // reactivate the exchange if it is disable
     public function reactivate($id)
     {
         try {
@@ -103,6 +108,8 @@ class exchangeController extends Controller
         }
     }
 
+    // list all toy paginate 10
+
     public function listAlltoy()
     {
         $toys = (new toyServices)->getAllToy();
@@ -118,6 +125,9 @@ class exchangeController extends Controller
 
         return response()->json($toys, 200);
     }
+
+
+    //list all toy with the client paginate number
     public function listAllToyPerPage($per_page)
     {
         $toys = (new toyServices)->getAllToyPerPage($per_page);
@@ -134,6 +144,7 @@ class exchangeController extends Controller
         return response()->json($toys, 200);
     }
 
+    //list all active toy paginate 10
 
     public function listActiveToy()
     {
@@ -147,6 +158,7 @@ class exchangeController extends Controller
         return response()->json($toys, 200);
     }
 
+    // list all deactive toy paginate 10
     public function listDeactiveToy()
     {
         $toys = (new ToyServices)->getListToy(0);
